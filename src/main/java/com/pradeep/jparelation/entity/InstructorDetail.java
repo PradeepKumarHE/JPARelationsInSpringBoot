@@ -10,6 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -27,5 +29,8 @@ public class InstructorDetail {
     @Column(name = "youtube_channel")
     private String youtubeChannel;
     @Column(name = "hobby")
-    private String hobby;       
+    private String hobby;    
+    @OneToOne(cascade=CascadeType.ALL,mappedBy="instructorDetail")      
+    @JsonBackReference
+    private Instructor instructor;   
 }
