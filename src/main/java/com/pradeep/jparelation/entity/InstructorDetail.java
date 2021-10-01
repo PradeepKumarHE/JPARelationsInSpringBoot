@@ -30,7 +30,13 @@ public class InstructorDetail {
     private String youtubeChannel;
     @Column(name = "hobby")
     private String hobby;    
-    @OneToOne(cascade=CascadeType.ALL,mappedBy="instructorDetail")      
+
+   /* @OneToOne(cascade=CascadeType.ALL,mappedBy="instructorDetail")      
     @JsonBackReference
-    private Instructor instructor;   
+    private Instructor instructor;*/ 
+
+    @OneToOne(cascade=CascadeType.ALL)
+    @JoinColumn(name="instructor_id")    
+    @JsonBackReference 
+    private Instructor instructor;    
 }
