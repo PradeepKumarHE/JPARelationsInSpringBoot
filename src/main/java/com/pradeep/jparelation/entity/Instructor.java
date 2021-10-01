@@ -27,8 +27,13 @@ public class Instructor {
     private String firstName;
     private String lastName;
     private String email;
-    @OneToOne(cascade=CascadeType.ALL)
+   
+   /* @OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="instructor_detail_id")
     @JsonManagedReference 
-    private InstructorDetail instructorDetail;      
+    private InstructorDetail instructorDetail; */
+
+    @OneToOne(cascade=CascadeType.ALL,mappedBy="instructor")
+    @JsonManagedReference
+    private InstructorDetail instructorDetail;     
 }
