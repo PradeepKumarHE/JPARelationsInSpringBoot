@@ -11,6 +11,4 @@ import com.pradeep.jparelation.domain.Course;
 
 @Repository
 public interface CourseRepository extends JpaRepository<Course, Long>{
- List<Course> findByInstructorId(Long instructorId);
- Optional<Course> findByIdAndInstructorId(Long id, Long instructorId);
 }

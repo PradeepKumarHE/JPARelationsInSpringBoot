@@ -31,8 +31,5 @@ public class Course extends AuditModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String title;
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "instructor_id")
-    @JsonBackReference
-    private Instructor instructor;
+    
  }

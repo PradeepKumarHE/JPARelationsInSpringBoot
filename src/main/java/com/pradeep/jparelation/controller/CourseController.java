@@ -27,19 +27,22 @@ public class CourseController {
     @Autowired
     private InstructorRepository instructorRepository;
 
-    @GetMapping("/instructors/{instructorId}/courses")
-    public List < Course > getCoursesByInstructor(@PathVariable(value = "postId") Long instructorId) {
-        return courseRepository.findByInstructorId(instructorId);
-    }
+	/*
+	 * @GetMapping("/instructors/{instructorId}/courses") public List < Course >
+	 * getCoursesByInstructor(@PathVariable(value = "postId") Long instructorId) {
+	 * return courseRepository.findByInstructorId(instructorId); }
+	 */
 
-    @PostMapping("/instructors/{instructorId}/courses")
-    public Course createCourse(@PathVariable(value = "instructorId") Long instructorId,
-        @RequestBody Course course) throws ResourceNotFoundException {
-        return instructorRepository.findById(instructorId).map(instructor -> {
-            course.setInstructor(instructor);
-            return courseRepository.save(course);
-        }).orElseThrow(() -> new ResourceNotFoundException("instructor not found"));
-    }
+	/*
+	 * @PostMapping("/instructors/{instructorId}/courses") public Course
+	 * createCourse(@PathVariable(value = "instructorId") Long instructorId,
+	 * 
+	 * @RequestBody Course course) throws ResourceNotFoundException { return
+	 * instructorRepository.findById(instructorId).map(instructor -> {
+	 * course.setInstructor(instructor); return courseRepository.save(course);
+	 * }).orElseThrow(() -> new ResourceNotFoundException("instructor not found"));
+	 * }
+	 */
 
     @PutMapping("/instructors/{instructorId}/courses/{courseId}")
     public Course updateCourse(@PathVariable(value = "instructorId") Long instructorId,
@@ -55,13 +58,17 @@ public class CourseController {
         }).orElseThrow(() -> new ResourceNotFoundException("course id not found"));
     }
 
-    @DeleteMapping("/instructors/{instructorId}/courses/{courseId}")
-    public ResponseEntity < ? > deleteCourse(@PathVariable(value = "instructorId") Long instructorId,
-        @PathVariable(value = "courseId") Long courseId) throws ResourceNotFoundException {
-        return courseRepository.findByIdAndInstructorId(courseId, instructorId).map(course -> {
-            courseRepository.delete(course);
-            return ResponseEntity.ok().build();
-        }).orElseThrow(() -> new ResourceNotFoundException(
-            "Course not found with id " + courseId + " and instructorId " + instructorId));
-    }
+	/*
+	 * @DeleteMapping("/instructors/{instructorId}/courses/{courseId}") public
+	 * ResponseEntity < ? > deleteCourse(@PathVariable(value = "instructorId") Long
+	 * instructorId,
+	 * 
+	 * @PathVariable(value = "courseId") Long courseId) throws
+	 * ResourceNotFoundException { return
+	 * courseRepository.findByIdAndInstructorId(courseId, instructorId).map(course
+	 * -> { courseRepository.delete(course); return ResponseEntity.ok().build();
+	 * }).orElseThrow(() -> new ResourceNotFoundException(
+	 * "Course not found with id " + courseId + " and instructorId " +
+	 * instructorId)); }
+	 */
 }

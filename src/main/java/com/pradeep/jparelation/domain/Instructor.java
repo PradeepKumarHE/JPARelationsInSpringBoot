@@ -37,8 +37,7 @@ public class Instructor extends AuditModel {
     private String lastName;
     private String email;
 
-    @OneToMany(mappedBy = "instructor", cascade = {CascadeType.ALL})
-    @JsonManagedReference
+    @OneToMany(cascade = CascadeType.ALL)    
     private List < Course > courses;
 
     public Instructor(String firstName, String lastName, String email) {
