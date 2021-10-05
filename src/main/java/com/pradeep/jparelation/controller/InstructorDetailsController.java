@@ -25,11 +25,7 @@ public class InstructorDetailsController {
 
 	@Autowired
 	InstructorDetailsRepository instructorDetailsRepository;
-
-	@PostMapping
-    public InstructorDetail createInstructor(@RequestBody InstructorDetail instructorDetail) {
-        return instructorDetailsRepository.save(instructorDetail);
-    }
+	
 	
 	@GetMapping
     public List <InstructorDetail> getInstructors() {

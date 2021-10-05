@@ -41,8 +41,8 @@ public class InstructorController {
 
     @GetMapping("{id}")
     public ResponseEntity <Instructor> getInstructorById( @PathVariable(value = "id") Long instructorId) throws ResourceNotFoundException {
-        Instructor user = instructorRepository.findById(instructorId).orElseThrow(() -> new ResourceNotFoundException("Instructor not found :: " + instructorId));
-        return ResponseEntity.ok().body(user);
+        Instructor instructor = instructorRepository.findById(instructorId).orElseThrow(() -> new ResourceNotFoundException("Instructor not found :: " + instructorId));
+        return ResponseEntity.ok().body(instructor);
     }
 
     @PutMapping("{id}")
