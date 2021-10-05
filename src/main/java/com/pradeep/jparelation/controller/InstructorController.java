@@ -2,6 +2,7 @@ package com.pradeep.jparelation.controller;
 
 import java.util.List;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,12 +27,10 @@ public class InstructorController {
 
 	@Autowired
 	InstructorRepository instructorRepository;
-
-    @Autowired
-	InstructorDetailsRepository instructorDetailsRepository;
+   
 	
 	@PostMapping
-    public Instructor createUser(@RequestBody Instructor instructor) {
+    public Instructor createInstructor(@RequestBody Instructor instructor) {
         return instructorRepository.save(instructor);
     }
 	
@@ -41,26 +40,21 @@ public class InstructorController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity < Instructor > getInstructorById( @PathVariable(value = "id") Long instructorId) throws ResourceNotFoundException {
+    public ResponseEntity <Instructor> getInstructorById( @PathVariable(value = "id") Long instructorId) throws ResourceNotFoundException {
         Instructor user = instructorRepository.findById(instructorId).orElseThrow(() -> new ResourceNotFoundException("Instructor not found :: " + instructorId));
-        return ResponseEntity.ok().body(user);
-    }
-    @GetMapping("details/{id}")
-    public ResponseEntity < InstructorDetail > getInstructorDetailsById( @PathVariable(value = "id") Long instructorId) throws ResourceNotFoundException {
-        InstructorDetail user = instructorDetailsRepository.findById(instructorId).orElseThrow(() -> new ResourceNotFoundException("Instructor not found :: " + instructorId));
         return ResponseEntity.ok().body(user);
     }
 
     @PutMapping("{id}")
-    public ResponseEntity < Instructor > updateUser(@PathVariable(value = "id") Long instructorId,@RequestBody Instructor userDetails) throws ResourceNotFoundException {
-        Instructor user = instructorRepository.findById(instructorId).orElseThrow(() -> new ResourceNotFoundException("Instructor not found :: " + instructorId));
-        user.setEmail(userDetails.getEmail());
-        final Instructor updatedUser = instructorRepository.save(user);
-        return ResponseEntity.ok(updatedUser);
+    public ResponseEntity <Instructor> updateInstructor(@PathVariable(value = "id") Long instructorId,@RequestBody Instructor updatedInstructorInfo) throws ResourceNotFoundException {
+        Instructor existingInstructor = instructorRepository.findById(instructorId).orElseThrow(() -> new ResourceNotFoundException("Instructor not found :: " + instructorId));
+        BeanUtils.copyProperties(updatedInstructorInfo,existingInstructor,"id");
+        final Instructor updatedInstructor = instructorRepository.save(existingInstructor);
+        return ResponseEntity.ok(updatedInstructor);
     }
 
-    @DeleteMapping("{id}")
-    public ResponseEntity<String>  deleteUser(@PathVariable(value = "id") Long instructorId) throws ResourceNotFoundException {
+    @DeleteMapping("{id}") 
+    public ResponseEntity<String>  deleteInstructor(@PathVariable(value = "id") Long instructorId) throws ResourceNotFoundException {
     	Instructor instructor = instructorRepository.findById(instructorId).orElseThrow(() -> new ResourceNotFoundException("Instructor not found :: " + instructorId));
         instructorRepository.delete(instructor);
         return new ResponseEntity<String>("Deleted Successfully",HttpStatus.OK);
